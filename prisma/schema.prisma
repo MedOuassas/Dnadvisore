@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  passwordHash String         @map("password_hash")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  searches     DomainSearch[]
+
+  @@map("users")
+}
+
+model DomainSearch {
+  id           String   @id @default(cuid())
+  userId       String?  @map("user_id")
+  domain       String
+  score        Int
+  estimatedLow Int      @map("estimated_low")
+  estimatedHigh Int     @map("estimated_high")
+  createdAt    DateTime @default(now()) @map("created_at")
+  user         User?    @relation(fields: [userId], references: [id])
+
+  @@index([domain])
+  @@map("domain_searches")
+}
+
+model ComparableSale {
+  id           String @id @default(cuid())
+  keyword      String @unique
+  averagePrice Int    @map("average_price")
+  salesCount   Int    @map("sales_count")
+
+  @@map("comparable_sales")
+}
