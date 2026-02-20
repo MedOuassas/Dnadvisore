@@ -1,4 +1,4 @@
-# DNAvisore — Domain Search & Evaluation SaaS
+# DNAdvisore — Domain Search & Evaluation SaaS
 
 Production-ready Next.js SaaS starter for real-time domain availability, weighted scoring (0–100), valuation estimates, comparable sales, and alternative suggestions.
 
